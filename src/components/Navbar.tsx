@@ -1,81 +1,79 @@
-import { Button, Container } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
+import CloseIcon from '@mui/icons-material/Close';
+import { useState } from "react";
 
 const Navbar = () => {
+  const [hamburgerMenu, setHamburgerMenu] = useState<boolean>(false)
+
+  const handleHamburgerMenu = () => {
+    setHamburgerMenu(!hamburgerMenu)
+  }
   return (
-    <Container
-      sx={{
-        display: "flex",
-        position: "relative",
-        justifyContent: "center",
-        padding: "40px 20px",
-      }}
-    >
-      {/* Desktop */}
-      <Container
+    <Box sx={{zIndex: 1,}}>
+      {/* Desktop Navbar */}
+      <Box
         sx={{
-          display: {
-            xs: "none",
-            md: "flex",
-          },
-          flexDirection: "row",
-          justifyContent: "space-between",
+          display: { xs: "none", md: "flex" },
           position: "fixed",
+          top: 0,
+          left: 0,
+          right: 0,
+          justifyContent: "space-between",
+          alignItems: "center",
+          padding: "20px 40px",
+          
         }}
       >
-        <Container sx={{ fontSize: "30px", fontWeight: "500" }}>
+        <Typography sx={{ fontSize: "30px", fontWeight: "500" }}>
           Lakshmi Chaithanya
-        </Container>
-        <Container
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-around",
-            fontFamily: "Poppins",
-            gap: "10px",
-          }}
-        >
+        </Typography>
+        <Box sx={{ display: "flex", gap: 3, fontFamily: "Poppins" }}>
           <a>About me</a>
           <a>Skills & Tools</a>
           <a>Experience</a>
           <a>Projects</a>
           <a>Education</a>
-        </Container>
-      </Container>
+        </Box>
+      </Box>
 
-      {/* mobile */}
-      <Container sx={{display: { xs: "flex", md: "none" }, flexDirection:"column", zIndex:"99", position:"fixed"}}>
-      <Container
+      {/* Mobile Navbar */}
+      <Box
         sx={{
-          display: "flex",
-          flexDirection: "row",
-          flexWrap:"nowrap",
-          justifyContent: "space-between",
-          position: "absolute",
-          top:"0px",
-         
+          display: { xs: "flex", md: "none" },
+          flexDirection: "column",
+          position: "fixed",
+          top: 0,
+          left: 0,
+          right: 0,
+          backgroundColor: "#000",
+          color: "#fff",
+          zIndex: 1300,
+          padding: "10px 20px",
         }}
       >
-        <Container sx={{ fontSize: "20px", fontWeight: "500"}}>
-          Lakshmi Chaithanya
-        </Container>
-      <Container sx={{display:"flex", flexDirection:"row", justifyContent:"end"}}>
-        <Button>
-          <MenuIcon sx={{color:"#fff"}}/>
-        </Button>
-      </Container>
-      </Container>
-      <Container sx={{position:"absolute", top:"50px" }}>
-        <ul>
-          <li>About Me</li>
-          <li>Skills & Tools</li>
-          <li>Experience</li>
-          <li>projects</li>
-          <li>Education</li>
-        </ul>
-      </Container>
-      </Container>
-    </Container>
+        <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+          <Typography sx={{ fontSize: "20px", fontWeight: "500" }}>
+            Lakshmi Chaithanya
+          </Typography>
+          <Button onClick={handleHamburgerMenu} sx={{display:hamburgerMenu ? "none" : "flex"}}>
+            <MenuIcon sx={{ color: "#fff" }} />
+          </Button>
+          <Button onClick={handleHamburgerMenu} sx={{display:hamburgerMenu ? "flex" : "none"}}>
+            <CloseIcon sx={{ color: "#fff" }}/>
+          </Button>
+        </Box>
+        <Box sx={{ marginTop: "10px", display:hamburgerMenu ? "block" : "none" }}>
+          <ul style={{ listStyle: "none", padding: 0, margin: 0, display:"flex", flexDirection:"column", gap:"20px" }}>
+            <li>About Me</li>
+            <li>Skills & Tools</li>
+            <li>Experience</li>
+            <li>Projects</li>
+            <li>Education</li>
+          </ul>
+        </Box>
+      </Box>
+    </Box>
   );
 };
 
